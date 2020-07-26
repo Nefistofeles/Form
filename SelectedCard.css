@@ -1,4 +1,4 @@
-.card1 {
+.card {
   display: block;
   position: relative;
   max-width: 262px;
@@ -11,31 +11,38 @@
   overflow: hidden;
 
 }
-.card1:before{
+.card:hover:before {
+    transform: scale(21);
+}
+.card:before {
+	
     content: "";
     position: absolute;
     z-index: -1;
     top: -16px;
     right: -16px;
-    background: #4dc3ff;
+    background: #00ae42;
     height: 32px;
     width: 32px;
     border-radius: 32px;
     transform: scale(1);
     transform-origin: 50% 50%;
     transition: transform 0.25s ease-out;
-}
-.card1:hover:before{
-  transform: scale(21);
-}
+	
+	
+  }
+.card:hover{
+	text-decoration : none;
+	
 
-.card1:hover {
-  p {
-    transition: all 0.3s ease-out;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  h3 {
-    transition: all 0.3s ease-out;
-    color: #ffffff;
-  }
+}
+.id{
+	color: rgba(0, 0, 0, 0.8);
+}
+.id:hover{
+	 transition: all 0.3s ease-out;
+	color: rgba(255, 255, 255, 0.8);
+}
+.small{
+	size : 14px ;
 }
