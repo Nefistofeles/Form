@@ -33,9 +33,9 @@
 								<div class="col-sm-4 offset-md-1 py-4">
 								  <h4 class="text-white">Contact</h4>
 								  <ul class="list-unstyled">
-									<li><a href="#" class="text-white">Follow on Twitter   <i class="fab fa-twitter"></i></a></li>
-									<li><a href="#" class="text-white">Like on Facebook    <i class="fab fa-facebook"></i></a></li>
-									<li><a href="#" class="text-white">Email me			   <i class="fas fa-envelope-square"></i></a></li>
+									<li><a href="#" class="text-white">Twitter   <i class="fab fa-twitter"></i></a></li>
+									<li><a href="#" class="text-white">Facebook    <i class="fab fa-facebook"></i></a></li>
+									<li><a href="#" class="text-white">Email			   <i class="fas fa-envelope-square"></i></a></li>
 								  </ul>
 								</div>
 						  </div>
@@ -130,28 +130,34 @@
 					
 				</div>
 				<div class="container btn-toolbar" style="padding-left : 3.9rem ; ">
-					<a class="card" href="#">
+					<a class="card" href="form.php">
 						<div class="id">
-							<h3 class="card-p">This is option 1</h3>
-							<p class="small card-h">Card description with lots of great facts and interesting details.</p>
+							<h3 class="card-p">Uyuşturucu</h3>
+							<p class="small card-h">Uyuşturucu ile ilgili Formlarımızı çözerek bilgi toplamamıza yardımcı olun.</p>
 						</div>
 					</a>
 					<a class="card" href="#">
 						<div class="id">
-							<h3 class="card-p">This is option 1</h3>
-							<p class="small card-h">Card description with lots of great facts and interesting details.</p>
+							<h3 class="card-p">Sigara</h3>
+							<p class="small card-h">Sigara ile ilgili Formlarımızı çözerek bilgi toplamamıza yardımcı olun.</p>
 						</div>
 					</a>
 					<a class="card" href="#">
 						<div class="id">
-								<h3 class="card-p">This is option 1</h3>
-							<p class="small card-h">Card description with lots of great facts and interesting details.</p>
+								<h3 class="card-p">Alkol</h3>
+							<p class="small card-h">Alkol ile ilgili Formlarımızı çözerek bilgi toplamamıza yardımcı olun.</p>
 						</div>
 					</a>
 				</div>
 			</section>
 		</main>
-		<footer></footer>
+		<div class="container-fluid" style="padding-top : 2rem;">
+			<footer class="page-footer font-small" style="background-color : #00ae42;">
+			  <div class="footer-copyright text-center py-3" style="color : black ;">© 2020 Copyright:
+				<a href="#" style="color : white;">FormSite.com</a>
+			  </div>
+			</footer>
+		</div>
 	</body>
 </html>
 
