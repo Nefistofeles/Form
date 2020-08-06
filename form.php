@@ -18,7 +18,7 @@
 			<input type="number" name="number" placeholder="number">
 			<button type="submit" name="submit">Find</button>
 		</form>
-		
+
 		<?php
 			include_once 'includes/databaseConnection.inc.php';
 			
@@ -31,31 +31,47 @@
 			$result = $conn->query($sql) ;
 		?>
 		
-		<?php 
-			echo '<ul class="list-group">' ;
-			$question_data = "";
-			$question_number = 1 ;
-			  while($row = $result->fetch_assoc()){
-				
-				$question_string = $row["question_string"] ;
-				if(strcmp ($question_string , $question_data) == 0){
-				
-				}else{
-					echo '<li class="list-group-item">'.$question_number.'. '.$question_string.'</li>' ;
-					$question_data = $question_string ;
-					$question_number++ ;
-				}
-				
-				$question_option = $row["option_string"] ;
-				echo '<li class="list-group-item">'.$question_option.'</li>' ;
-				
-				
-			  }
-			  
-			echo '</ul>' ;
-		
-		?>
-		<!--				$question_string = $row["question_string"] ;
-				$question_option = $row["option_string"] ;-->
+		<form action="result.php" method= "POST">
+			<div>
+				<?php 
+					echo '<ul class="list-group">' ;
+					$question_data = "";
+					$question_number = 0 ;
+					  echo '<div class="container-fluid">' . 
+							  '<div class="row">'; 
+					  while($row = $result->fetch_assoc()){
+						
+						$question_string = $row["question_string"] ;
+						if(strcmp ($question_string , $question_data) == 0){
+						}else{
+							echo '<div class="col-sm-12">' ;
+							echo '<div class="col-sm-4">' ;
+							echo '<li class="list-group-item overflow-visible">'.$question_number.'. '.$question_string.'</li>' ;
+							echo '</div>' ;
+							$question_data = $question_string ;
+							$question_number++ ;
+							
+							echo '</div>' ;
+						}
+						
+						$question_option = $row["option_string"] ;
+						$question_point = $row["point"] ;
+						echo 	'<div class="col-sm-1">' .
+									'<input type="radio" name="id'.$question_number.'" value="'.$question_point.'">'.$question_option.' </input>' .
+								'</div>' 
+						;
+						
+						
+						
+					}
+					echo '</div>' .
+							'</div>' ; 
+					echo "</ul>" ;
+				?>
+				<div>
+					<input type="submit" name="insertValue" value="insert">
+				</div>
+			</div>
+		</form>
 	</body>
 </html>
