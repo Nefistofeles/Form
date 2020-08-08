@@ -129,26 +129,29 @@
 					</div>
 					
 				</div>
-				<div class="container btn-toolbar" style="padding-left : 3.9rem ; ">
-					<a class="card" href="form.php">
-						<div class="id">
-							<h3 class="card-p">Uyuşturucu</h3>
-							<p class="small card-h">Uyuşturucu ile ilgili Formlarımızı çözerek bilgi toplamamıza yardımcı olun.</p>
-						</div>
-					</a>
-					<a class="card" href="#">
-						<div class="id">
-							<h3 class="card-p">Sigara</h3>
-							<p class="small card-h">Sigara ile ilgili Formlarımızı çözerek bilgi toplamamıza yardımcı olun.</p>
-						</div>
-					</a>
-					<a class="card" href="#">
-						<div class="id">
-								<h3 class="card-p">Alkol</h3>
-							<p class="small card-h">Alkol ile ilgili Formlarımızı çözerek bilgi toplamamıza yardımcı olun.</p>
-						</div>
-					</a>
-				</div>
+				<form name='form' action='form.php' method='POST'>
+					<div class="container btn-toolbar" style="padding-left : 3.9rem ; ">
+						<button class="card" name = 'tag' value = 'Uyuşturucu'>
+							<div class="id">
+								<h3 class="card-p">Uyuşturucu</h3>
+								<p class="small card-h">Uyuşturucu ile ilgili Formlarımızı çözerek bilgi toplamamıza yardımcı olun.</p>
+							</div>
+						</button>
+						<button class="card" name = 'tag' value = 'Sigara'>
+							<div class="id">
+								<h3 class="card-p">Sigara</h3>
+								<p class="small card-h">Sigara ile ilgili Formlarımızı çözerek bilgi toplamamıza yardımcı olun.</p>
+							</div>
+						</button>
+						<button class="card" name = 'tag' value = 'Alkol'>
+							<div class="id">
+									<h3 class="card-p">Alkol</h3>
+								<p class="small card-h">Alkol ile ilgili Formlarımızı çözerek bilgi toplamamıza yardımcı olun.</p>
+							</div>
+						</button>
+					</div>
+				</form>
+
 			</section>
 		</main>
 		<div class="container-fluid" style="padding-top : 2rem;">

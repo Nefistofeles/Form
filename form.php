@@ -13,22 +13,18 @@
 		<link rel="stylesheet" href="SelectedCard.css">
 	</head>
 	<body>
-	<!-- action="includes/formdata.inc.php" -->
-		<form action="form.php" method="POST">
-			<input type="number" name="number" placeholder="number">
-			<button type="submit" name="submit">Find</button>
-		</form>
-
 		<?php
 			include_once 'includes/databaseConnection.inc.php';
-			
-			$number = mysqli_real_escape_string($conn, $_POST['number']) ;
+			echo 'TAG : ' . $_POST['tag'] ;
+			//$number = mysqli_real_escape_string($conn, $_POST['number']) ;
 			$sql = "select * from question_option 
 			inner join question on question.id = question_option.question_id 
-			inner join form on question.form_id = '$number';";
+			inner join form on question.form_id = form.id and form.tag = '" .  $_POST['tag']  .  "' and form.isActive = true order by form.id ;";
 			
 			
 			$result = $conn->query($sql) ;
+			
+			mysqli_close($conn); 
 		?>
 		
 		<form action="result.php" method= "POST">
@@ -60,7 +56,7 @@
 									'<input type="radio" name="id'.$question_number.'" value="'.$question_point.'">'.$question_option.' </input>' .
 								'</div>' 
 						;
-						
+						echo '<input type ="hidden" name= "question_number" value='.$question_number.'>' ;
 						
 						
 					}

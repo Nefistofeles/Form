@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2020 at 02:23 PM
+-- Generation Time: Aug 08, 2020 at 06:11 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -31,15 +31,16 @@ CREATE TABLE `form` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(40) NOT NULL,
   `tag` varchar(40) NOT NULL,
-  `information` text NOT NULL
+  `information` text NOT NULL,
+  `isActive` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `form`
 --
 
-INSERT INTO `form` (`id`, `name`, `tag`, `information`) VALUES
-(1, 'Uyuşturucu', 'uyuşturucu', 'Uyuşturucu bağımlılığı hakkında');
+INSERT INTO `form` (`id`, `name`, `tag`, `information`, `isActive`) VALUES
+(1, 'Uyuşturucu', 'uyuşturucu', 'Uyuşturucu bağımlılığı hakkında', 1);
 
 -- --------------------------------------------------------
 
@@ -58,7 +59,8 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`id`, `question_string`, `form_id`) VALUES
-(1, 'Uyuşturucu hakkında ne kadar bilgilisiniz?', 1);
+(1, 'Uyuşturucu hakkında ne kadar bilgilisiniz?', 1),
+(2, 'sa', 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +84,8 @@ INSERT INTO `question_option` (`id`, `option_string`, `point`, `question_id`) VA
 (2, 'Biraz', 30, 1),
 (3, 'Az', 10, 1),
 (4, 'Çok Az', 10, 1),
-(5, 'Hiç', 0, 1);
+(5, 'Hiç', 0, 1),
+(6, 'aaa', 25, 2);
 
 -- --------------------------------------------------------
 
@@ -146,13 +149,13 @@ ALTER TABLE `form`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `question_option`
 --
 ALTER TABLE `question_option`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `result`
