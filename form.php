@@ -16,7 +16,6 @@
 			inner join question on question.id = question_option.question_id 
 			inner join form on question.form_id = form.id and form.tag = '" .  $_POST['tag']  .  "' and form.isActive = true order by form.id ;";
 			
-			
 			$result = $conn->query($sql) ;
 			if($row = $result->fetch_assoc()){
 				$name = $row['name'] ; 
