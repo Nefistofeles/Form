@@ -5,16 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminPanel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200">
+        Title="MainWindow" Height="800" Width="1200" Background="#FF0A0909" FontWeight="Bold" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="Background" Value="#1b1c1b"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
     </Window.Resources>
-    <Grid Margin="420,282,508,395">
-        <Button Content="Click" Click="Button_Click"/>
-    </Grid>
+    <TabControl Margin="20" BorderBrush="Gainsboro">
+        <TabItem Header="Create">
+
+        </TabItem>
+        <TabItem Header="Delete">
+        </TabItem>
+        <TabItem Header="Update">
+            <Grid Margin="10,0,2,2">
+                <Button Content="Find" FontSize="15" Click="Button_Find" Margin="10,10,1036,654"/>
+
+                <ListView Margin="0,60,389,0" Name="FormInformation" SelectionChanged="SelectedItem">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"></GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag"></GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Header="IsActive"></GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Information}" Header="Information"></GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock HorizontalAlignment="Left" Margin="839,60,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
+                <TextBox Name="NameBox" HorizontalAlignment="Left" Height="23" Margin="839,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253"/>
+                <TextBlock HorizontalAlignment="Left" Margin="839,119,0,0" TextWrapping="Wrap" Text="Tag" VerticalAlignment="Top"/>
+                <TextBox Name="TagBox" HorizontalAlignment="Left" Height="53" Margin="839,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253"/>
+                <TextBlock HorizontalAlignment="Left" Margin="839,209,0,0" TextWrapping="Wrap" Text="IsActive" VerticalAlignment="Top"/>
+                <TextBlock HorizontalAlignment="Left" Margin="839,264,0,0" TextWrapping="Wrap" Text="Information" VerticalAlignment="Top"/>
+                <TextBox Name="InformationBox" HorizontalAlignment="Left" Height="239" Margin="839,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253"/>
+                <CheckBox Name="IsActive" Content="Active" HorizontalAlignment="Left" Margin="839,230,0,0" VerticalAlignment="Top" Height="20" Width="83"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+
+
 </Window>

@@ -19,17 +19,28 @@ namespace AdminPanel
 {
     public partial class MainWindow : Window
     {
+        private MyMySQLConnection databaseConnection; 
         public MainWindow()
         {
             InitializeComponent();
-
+            databaseConnection = new MyMySQLConnection();
             
+
         }
-        private void Button_Click(object sender, EventArgs e)
+        private void SelectedItem(object sender, EventArgs e)
         {
-            MySqlConnection connection = ConnectMySQL();
-            string query = "select * from form where id = 1";
+            Form form = FormInformation.SelectedItem as Form;
+            NameBox.Text = form.Name;
+            TagBox.Text = form.Tag;
+            InformationBox.Text = form.Information;
+            IsActive.IsChecked = form.IsActive;
+        }
+        private void Button_Find(object sender, EventArgs e)
+        {
+            MySqlConnection connection = databaseConnection.ConnectMySQL();
+            string query = "select * from form";
             MySqlCommand command = new MySqlCommand(query, connection);
+            List<Form> formList = new List<Form>();
             try
             {
                 connection.Open();
@@ -38,11 +49,11 @@ namespace AdminPanel
                 {
                     while (reader.Read())
                     {
-                        Console.WriteLine(reader.GetString(0) + " " + reader.GetString(1));
+                        formList.Add(new Form(reader.GetInt16(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetBoolean(4)));
                     }
                     
                 }
-                
+                FormInformation.ItemsSource = formList;
                 connection.Close();
             }catch(Exception error)
             {
@@ -50,11 +61,5 @@ namespace AdminPanel
             }
         }
         
-        private MySqlConnection ConnectMySQL()
-        {
-            string mysqlConn = "Server = localhost; Database = formstatistics; Uid = root; Pwd = ''; ";
-            MySqlConnection connection = new MySqlConnection(mysqlConn);
-            return connection;
-        }
     }
 }
