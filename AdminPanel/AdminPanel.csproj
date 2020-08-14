@@ -56,9 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Question.cs" />
-    <Compile Include="QuestionOption.cs" />
-    <Compile Include="Result.cs" />
+    <Compile Include="DAO\FindThemAll.cs" />
+    <Compile Include="DAO\FormDAO.cs" />
+    <Compile Include="DAO\QuestionDAO.cs" />
+    <Compile Include="DAO\QuestionOptionDAO.cs" />
+    <Compile Include="DAO\ResultDAO.cs" />
+    <Compile Include="entities\Question.cs" />
+    <Compile Include="entities\QuestionOption.cs" />
+    <Compile Include="entities\Result.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,14 +72,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Form.cs" />
+    <Compile Include="entities\Form.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyMySQLConnection.cs" />
+    <Compile Include="MySQLConnection\MyMySQLConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controller\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

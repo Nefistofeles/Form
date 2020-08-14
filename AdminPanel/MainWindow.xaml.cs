@@ -13,52 +13,60 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AdminPanel.DAO;
 using MySql.Data.MySqlClient;
 
 namespace AdminPanel
 {
     public partial class MainWindow : Window
     {
-        private MyMySQLConnection databaseConnection; 
+        private FormDAO formdata;
+        private QuestionDAO questiondata;
+        private QuestionOptionDAO questionOptiondata;
+
         public MainWindow()
         {
             InitializeComponent();
-            databaseConnection = new MyMySQLConnection();
-            
+            formdata = new FormDAO();
+            questiondata = new QuestionDAO(formdata);
+            questionOptiondata = new QuestionOptionDAO(questiondata);
 
         }
         private void SelectedItem(object sender, EventArgs e)
         {
             Form form = FormInformation.SelectedItem as Form;
-            NameBox.Text = form.Name;
-            TagBox.Text = form.Tag;
-            InformationBox.Text = form.Information;
-            IsActive.IsChecked = form.IsActive;
+            if(form != null)
+            {
+                NameBox.Text = form.Name;
+                TagBox.Text = form.Tag;
+                InformationBox.Text = form.Information;
+                IsActive.IsChecked = form.IsActive;
+
+                MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
+                connection.Open();
+                List<Question> questionList = questiondata.GetListForForm(connection, form);
+                connection.Close();
+                QuestionList.ItemsSource = questionList;
+            }
+            else
+            {
+                NameBox.Text = "";
+                TagBox.Text = "";
+                InformationBox.Text ="";
+                IsActive.IsChecked = false;
+            }
+            
         }
         private void Button_Find(object sender, EventArgs e)
         {
-            MySqlConnection connection = databaseConnection.ConnectMySQL();
-            string query = "select * from form";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            List<Form> formList = new List<Form>();
-            try
-            {
-                connection.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        formList.Add(new Form(reader.GetInt16(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetBoolean(4)));
-                    }
-                    
-                }
-                FormInformation.ItemsSource = formList;
-                connection.Close();
-            }catch(Exception error)
-            {
-                Console.WriteLine(error.ToString());
-            }
+            FormInformation.UnselectAll();
+            QuestionList.UnselectAll();
+            MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
+            connection.Open();
+            List<Form> formList = formdata.GetList(connection);
+            connection.Close();
+            FormInformation.ItemsSource = formList;
+            
         }
         
     }

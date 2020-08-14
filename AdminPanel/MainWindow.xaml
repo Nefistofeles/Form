@@ -24,7 +24,7 @@
             <Grid Margin="10,0,2,2">
                 <Button Content="Find" FontSize="15" Click="Button_Find" Margin="10,10,1036,654"/>
 
-                <ListView Margin="0,60,389,0" Name="FormInformation" SelectionChanged="SelectedItem">
+                <ListView Margin="0,60,504,286" Name="FormInformation" SelectionChanged="SelectedItem">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"></GridViewColumn>
@@ -35,14 +35,25 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <TextBlock HorizontalAlignment="Left" Margin="839,60,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
-                <TextBox Name="NameBox" HorizontalAlignment="Left" Height="23" Margin="839,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253"/>
-                <TextBlock HorizontalAlignment="Left" Margin="839,119,0,0" TextWrapping="Wrap" Text="Tag" VerticalAlignment="Top"/>
-                <TextBox Name="TagBox" HorizontalAlignment="Left" Height="53" Margin="839,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253"/>
-                <TextBlock HorizontalAlignment="Left" Margin="839,209,0,0" TextWrapping="Wrap" Text="IsActive" VerticalAlignment="Top"/>
-                <TextBlock HorizontalAlignment="Left" Margin="839,264,0,0" TextWrapping="Wrap" Text="Information" VerticalAlignment="Top"/>
-                <TextBox Name="InformationBox" HorizontalAlignment="Left" Height="239" Margin="839,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253"/>
-                <CheckBox Name="IsActive" Content="Active" HorizontalAlignment="Left" Margin="839,230,0,0" VerticalAlignment="Top" Height="20" Width="83"/>
+                <TextBlock HorizontalAlignment="Left" Margin="664,21,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
+                <TextBox Name="NameBox" HorizontalAlignment="Left" Height="23" Margin="664,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+                <TextBlock HorizontalAlignment="Left" Margin="664,89,0,0" TextWrapping="Wrap" Text="Tag" VerticalAlignment="Top"/>
+                <TextBox Name="TagBox" HorizontalAlignment="Left" Height="53" Margin="664,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+                <TextBlock HorizontalAlignment="Left" Margin="664,183,0,0" TextWrapping="Wrap" Text="IsActive" VerticalAlignment="Top"/>
+                <TextBlock HorizontalAlignment="Left" Margin="664,233,0,0" TextWrapping="Wrap" Text="Information" VerticalAlignment="Top"/>
+                <TextBox Name="InformationBox" HorizontalAlignment="Left" Height="161" Margin="664,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+                <CheckBox Name="IsActive" Content="Active" HorizontalAlignment="Left" Margin="664,204,0,0" VerticalAlignment="Top" Height="20" Width="83"/>
+                <ListView Name="QuestionList" HorizontalAlignment="Left" Height="246" Margin="0,445,0,0" VerticalAlignment="Top" Width="312">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Question_string}" Header="Name"></GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock HorizontalAlignment="Left" Margin="10,424,0,0" TextWrapping="Wrap" Text="Questions" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="327,466,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBlock HorizontalAlignment="Left" Margin="327,445,0,0" TextWrapping="Wrap" Text="Question String" VerticalAlignment="Top"/>
             </Grid>
         </TabItem>
     </TabControl>

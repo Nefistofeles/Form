@@ -11,19 +11,22 @@ namespace AdminPanel
         private int id;
         private int point;
         private string e_mail;
-        private Form form;
+        private int form_id;
 
-        public Result(int id, int point, string e_mail, Form form)
+        public Result(int id, int point, string e_mail, int form_id)
         {
             this.Id = id;
             this.Point = point;
             this.E_mail = e_mail;
-            this.Form = form;
+            this.Form_id = form_id;
         }
-
+        public override string ToString()
+        {
+            return "id " + id + " point " + point + " e_mail " + e_mail + " form_id " + Form_id;
+        }
         public int Id { get => id; set => id = value; }
         public int Point { get => point; set => point = value; }
         public string E_mail { get => e_mail; set => e_mail = value; }
-        public Form Form { get => form; set => form = value; }
+        public int Form_id { get => form_id; set => form_id = value; }
     }
 }
