@@ -36,14 +36,14 @@
                     </ListView.View>
                 </ListView>
                 <TextBlock HorizontalAlignment="Left" Margin="664,21,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
-                <TextBox Name="NameBox" HorizontalAlignment="Left" Height="23" Margin="664,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+                <TextBox Name="FormNameBox" HorizontalAlignment="Left" Height="23" Margin="664,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
                 <TextBlock HorizontalAlignment="Left" Margin="664,89,0,0" TextWrapping="Wrap" Text="Tag" VerticalAlignment="Top"/>
-                <TextBox Name="TagBox" HorizontalAlignment="Left" Height="53" Margin="664,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+                <TextBox Name="FormTagBox" HorizontalAlignment="Left" Height="53" Margin="664,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
                 <TextBlock HorizontalAlignment="Left" Margin="664,183,0,0" TextWrapping="Wrap" Text="IsActive" VerticalAlignment="Top"/>
                 <TextBlock HorizontalAlignment="Left" Margin="664,233,0,0" TextWrapping="Wrap" Text="Information" VerticalAlignment="Top"/>
-                <TextBox Name="InformationBox" HorizontalAlignment="Left" Height="161" Margin="664,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
-                <CheckBox Name="IsActive" Content="Active" HorizontalAlignment="Left" Margin="664,204,0,0" VerticalAlignment="Top" Height="20" Width="83"/>
-                <ListView Name="QuestionList" HorizontalAlignment="Left" Height="246" Margin="0,445,0,0" VerticalAlignment="Top" Width="312">
+                <TextBox Name="FormInformationBox" HorizontalAlignment="Left" Height="161" Margin="664,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+                <CheckBox Name="FormIsActive" Content="Active" HorizontalAlignment="Left" Margin="664,204,0,0" VerticalAlignment="Top" Height="20" Width="83"/>
+                <ListView Name="QuestionList" HorizontalAlignment="Left" Height="246" Margin="0,445,0,0" VerticalAlignment="Top" Width="312" SelectionChanged="SelectedQuestionItem">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Question_string}" Header="Name"></GridViewColumn>
@@ -52,8 +52,23 @@
                     </ListView.View>
                 </ListView>
                 <TextBlock HorizontalAlignment="Left" Margin="10,424,0,0" TextWrapping="Wrap" Text="Questions" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="23" Margin="327,466,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="QuestionStringBox" HorizontalAlignment="Left" Height="149" Margin="327,466,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
                 <TextBlock HorizontalAlignment="Left" Margin="327,445,0,0" TextWrapping="Wrap" Text="Question String" VerticalAlignment="Top"/>
+                <ListView Name="QuestionOptionList" HorizontalAlignment="Left" Height="246" Margin="497,445,0,0" VerticalAlignment="Top" Width="305" SelectionChanged="SelectedQuestionOptionItem">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Option_string}" Header="Option_String"></GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Point}" Header="Point"></GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBox Name="OptionBox" HorizontalAlignment="Left" Height="146" Margin="822,469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+                <TextBlock HorizontalAlignment="Left" Margin="822,448,0,0" TextWrapping="Wrap" Text="Option" VerticalAlignment="Top"/>
+                <TextBlock HorizontalAlignment="Left" Margin="822,630,0,0" TextWrapping="Wrap" Text="Point" VerticalAlignment="Top"/>
+                <TextBox Name="PointBox" HorizontalAlignment="Left" Height="23" Margin="822,651,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Button Content="Update" HorizontalAlignment="Left" Margin="1026,630,0,0" VerticalAlignment="Top" Width="100" Height="61" Click="Update"/>
+
             </Grid>
         </TabItem>
     </TabControl>

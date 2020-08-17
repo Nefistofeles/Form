@@ -16,7 +16,7 @@ namespace AdminPanel.DAO
         }
         public void Insert(MySqlConnection connection, Question question)
         {
-            string query = "insert into question(id, question_string, form_id) values(DEFAULT" + "," + question.Question_string + "," + question.Form_id+ ");";
+            string query = "insert into question(id, question_string, form_id) values(DEFAULT" + ",'" + question.Question_string + "'," + question.Form_id+ ");";
 
             try
             {
@@ -31,7 +31,7 @@ namespace AdminPanel.DAO
         }
         public void Update(MySqlConnection connection, Question question)
         {
-            string query = "Update question set question.question_string = " + question.Question_string + "," + "question.form_id = " + question.Form_id + " where id = " + question.Id;
+            string query = "Update question set question_string = '" + question.Question_string + "'," + "form_id = " + question.Form_id + " where id = " + question.Id + " where id = " + question.Id;
 
             try
             {

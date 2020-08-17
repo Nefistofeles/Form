@@ -16,7 +16,7 @@ namespace AdminPanel.DAO
         }
         public void Insert(MySqlConnection connection, QuestionOption questionOption)
         {
-            string query = "insert into question_option(id, option_string, point, question_id) values(DEFAULT" + "," + questionOption.Option_string + "," + questionOption.Point + ", " + questionOption.Question_id + ");";
+            string query = "insert into question_option(id, option_string, point, question_id) values(DEFAULT" + ",'" + questionOption.Option_string + "'," + questionOption.Point + ", " + questionOption.Question_id + ");";
 
             try
             {
@@ -31,7 +31,7 @@ namespace AdminPanel.DAO
         }
         public void Update(MySqlConnection connection, QuestionOption questionOption)
         {
-            string query = "Update question_option set question_option.option_string = " + questionOption.Option_string + "," + "question.point = " + questionOption.Point + "," + "question_option.question_id = " + questionOption.Question_id + " where id = " + questionOption.Id;
+            string query = "Update question_option set option_string = '" + questionOption.Option_string + "'," + "point = " + questionOption.Point + "," + "question_id = " + questionOption.Question_id + " where id = " + questionOption.Id;
 
             try
             {
@@ -67,6 +67,33 @@ namespace AdminPanel.DAO
             string query = "Select * from question_option";
             MySqlCommand command = new MySqlCommand(query, connection);
                
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        questionOptionList.Add(new QuestionOption(reader.GetInt16("id"), reader.GetString("option_string"), reader.GetInt16("point"), reader.GetInt16("question_id")));
+
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return questionOptionList;
+        }
+        public List<QuestionOption> GetListForQuestion(MySqlConnection connection, Question question)
+        {
+            List<QuestionOption> questionOptionList = new List<QuestionOption>();
+            string query = "Select * from question_option where question_id = " + question.Id;
+            MySqlCommand command = new MySqlCommand(query, connection);
+
             try
             {
                 MySqlDataReader reader = command.ExecuteReader();

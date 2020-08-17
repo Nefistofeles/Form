@@ -11,7 +11,7 @@ namespace AdminPanel.DAO
     {
         public void Insert(MySqlConnection connection, Form form)
         {
-            string query = "insert into form(id, name, tag, information, isActive) values(DEFAULT" + "," + form.Name + "," + form.Tag + "," + form.Information + "," + form.IsActive + ");";
+            string query = "insert into form(id, name, tag, information, isActive) values(DEFAULT" + ",'" + form.Name + "','" + form.Tag + "','" + form.Information + "'," + form.IsActive + ");";
 
             try
             {
@@ -26,7 +26,7 @@ namespace AdminPanel.DAO
         }
         public void Update(MySqlConnection connection, Form form)
         {
-            string query = "Update form set form.name = " + form.Name + "," + "form.tag = " + form.Tag + "," + "form.information = " + form.Information + "," + "form.isActive = " + form.IsActive;
+            string query = "Update form set name = '" + form.Name + "'," + "tag = '" + form.Tag + "'," + "information = '" + form.Information + "'," + "isActive = " + form.IsActive + " where id = " + form.Id ;
 
             try
             {
