@@ -88,6 +88,33 @@ namespace AdminPanel.DAO
             }
             return questionOptionList;
         }
+        public List<QuestionOption> GetListForSearch(MySqlConnection connection, string columnName, string searchText)
+        {
+            List<QuestionOption> questionOptionList = new List<QuestionOption>();
+            string query = "Select * from question_option where " + columnName + " LIKE '" + searchText + "';";
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        questionOptionList.Add(new QuestionOption(reader.GetInt16("id"), reader.GetString("option_string"), reader.GetInt16("point"), reader.GetInt16("question_id")));
+
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return questionOptionList;
+        }
         public List<QuestionOption> GetListForQuestion(MySqlConnection connection, Question question)
         {
             List<QuestionOption> questionOptionList = new List<QuestionOption>();
@@ -139,6 +166,65 @@ namespace AdminPanel.DAO
                 Console.WriteLine(e.ToString());
             }
             return questionOption;
+        }
+        public List<string> FindColumnNamesOnlyString(MySqlConnection connection)
+        {
+            List<string> columnNames = new List<string>();
+            string query = "show columns from question_option";
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString("Type").Contains("varchar") || reader.GetString("Type").Contains("text"))
+                            columnNames.Add(reader.GetString("Field"));
+
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return columnNames;
+        }
+        public List<string> FindColumnNamesAndInformation(MySqlConnection connection, out List<string> typeInformation)
+        {
+            List<string> columnNames = new List<string>();
+            typeInformation = new List<string>();
+            string query = "show columns from question_option";
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        columnNames.Add(reader.GetString("Field"));
+                        typeInformation.Add(reader.GetString("Type"));
+
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return columnNames;
         }
     }
 }

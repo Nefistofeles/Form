@@ -13,6 +13,7 @@ namespace AdminPanel.DAO
         public QuestionDAO(FormDAO formdata)
         {
             this.formdata = formdata;
+
         }
         public void Insert(MySqlConnection connection, Question question)
         {
@@ -64,6 +65,33 @@ namespace AdminPanel.DAO
         { 
             List<Question> questionList = new List<Question>();
             string query = "Select * from question";
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        questionList.Add(new Question(reader.GetInt16("id"), reader.GetString("question_string"), reader.GetInt16("form_id")));
+
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return questionList;
+        }
+        public List<Question> GetListForSearch(MySqlConnection connection, string columnName, string searchText)
+        {
+            List<Question> questionList = new List<Question>();
+            string query = "Select * from question where " + columnName + " LIKE '" + searchText + "' ;" ;
             MySqlCommand command = new MySqlCommand(query, connection);
 
             try
@@ -141,6 +169,65 @@ namespace AdminPanel.DAO
                 Console.WriteLine(e.ToString());
             }
             return question;
+        }
+        public List<string> FindColumnNamesOnlyString(MySqlConnection connection)
+        {
+            List<string> columnNames = new List<string>();
+            string query = "show columns from question";
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString("Type").Contains("varchar") || reader.GetString("Type").Contains("text"))
+                            columnNames.Add(reader.GetString("Field"));
+
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return columnNames;
+        }
+        public List<string> FindColumnNamesAndInformation(MySqlConnection connection, out List<string> informationType)
+        {
+            List<string> columnNames = new List<string>();
+            informationType = new List<string>();
+            string query = "show columns from question";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            
+
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        columnNames.Add(reader.GetString("Field"));
+                        informationType.Add(reader.GetString("Type")) ;
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return columnNames;
         }
     }
 }

@@ -77,9 +77,9 @@
         </TabItem>
         <TabItem Header="Delete">
             <Grid>
-                <TextBlock HorizontalAlignment="Left" Margin="10,30,0,0" TextWrapping="Wrap" Text="Form Delete" VerticalAlignment="Top" Height="30" Width="135" Background="White" Foreground="Black" FontSize="15" TextAlignment="Center"/>
-                <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="440" Margin="0,10,0,0" VerticalAlignment="Top" Width="507"/>
-                <ListView Margin="10,65,671,273" Name="FormListDelete" SelectionChanged="SelectedItem">
+                <TextBlock HorizontalAlignment="Left" Margin="10,195,0,0" TextWrapping="Wrap" Text="Form Delete" VerticalAlignment="Top" Height="30" Width="135" Background="White" Foreground="Black" FontSize="15" TextAlignment="Center"/>
+                <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="346" Margin="0,184,0,0" VerticalAlignment="Top" Width="507"/>
+                <ListView Margin="10,232,671,188" Name="FormListDelete" SelectionChanged="SelectedItem">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"></GridViewColumn>
@@ -114,17 +114,30 @@
                 <Button Content="Delete" HorizontalAlignment="Left" Margin="968,661,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="AreYouSure" />
                 <Button Content="Find" HorizontalAlignment="Left" Margin="968,338,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="FindQuestionOption"/>
                 <Button Content="Find" HorizontalAlignment="Left" Margin="968,17,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="FindQuestion"/>
-                <Button Content="Find" HorizontalAlignment="Left" Margin="321,23,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="FindForm"/>
+                <Button Content="Find" HorizontalAlignment="Left" Margin="321,195,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="FindForm"/>
 
-                <Border Name="ControlBorder" Visibility="Hidden" BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Right" Height="220" Margin="0,473,631,0" VerticalAlignment="Top" Width="507">
+                <Border Name="ControlBorder" Visibility="Hidden" BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Right" Height="158" Margin="0,535,756,0" VerticalAlignment="Top" Width="382">
                     <Grid Margin="7,7,14,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100*"/>
                             <RowDefinition Height="107*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Left" Margin="57,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Width="360" Background="White" Foreground="Black" FontSize="30" TextAlignment="Center"><Run Text="Are you sure?"/><LineBreak/><Run/></TextBlock>
-                        <Button Name="NoButton" Content="No" HorizontalAlignment="Left" Margin="261,8,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="NoButtonFunc" Grid.Row="1"/>
-                        <Button Name="YesButton" Content="Yes" HorizontalAlignment="Left" Margin="57,8,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="YesButtonFunc" Grid.Row="1"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Width="360" Background="White" Foreground="Black" FontSize="30" TextAlignment="Center" Grid.RowSpan="2"><Run Text="Are you sure?"/><LineBreak/><Run/></TextBlock>
+                        <Button Name="NoButton" Content="No" HorizontalAlignment="Left" Margin="197,8,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="NoButtonFunc" Grid.Row="1"/>
+                        <Button Name="YesButton" Content="Yes" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="YesButtonFunc" Grid.Row="1"/>
+                    </Grid>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="169" Margin="10,10,0,0" VerticalAlignment="Top" Width="220">
+                    <Grid Margin="-1,0,0,0">
+                        <TextBlock HorizontalAlignment="Left" Margin="84,0,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top"/>
+                        <Button Content="Search" HorizontalAlignment="Left" Margin="69,118,0,0" VerticalAlignment="Top" Width="70" Height="20" FontSize="10" Click="SearchDelete"/>
+                        <TextBox Name="DeleteSearchBox" HorizontalAlignment="Left" Height="23" Margin="44,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,33,0,0" TextWrapping="Wrap" Text="Table" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="DeleteComboColumnBox" HorizontalAlignment="Left" Margin="120,49,0,0" VerticalAlignment="Top" Width="89" />
+                        <TextBlock HorizontalAlignment="Left" Margin="120,33,0,0" TextWrapping="Wrap" Text="Column" VerticalAlignment="Top"/>
+                        <ComboBox Name="DeleteTableData" HorizontalAlignment="Left" Margin="9,49,0,0" VerticalAlignment="Top" Width="90" SelectionChanged="OnTimedDelete"/>
+                        <TextBlock Name="DeleteErrorSearchText" HorizontalAlignment="Left" Margin="9,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+
                     </Grid>
                 </Border>
             </Grid>
@@ -182,6 +195,19 @@
                 <TextBlock HorizontalAlignment="Left" Margin="810,630,0,0" TextWrapping="Wrap" Text="Point" VerticalAlignment="Top" Grid.Column="2"/>
                 <TextBox Name="PointBox" HorizontalAlignment="Left" Height="23" Margin="810,651,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
                 <Button Content="Update" HorizontalAlignment="Left" Margin="1014,630,0,0" VerticalAlignment="Top" Width="100" Height="61" Click="Update" Grid.Column="2"/>
+                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2" HorizontalAlignment="Left" Height="169" Margin="885,21,0,0" VerticalAlignment="Top" Width="220">
+                    <Grid Margin="-1,0,0,0">
+                        <TextBlock HorizontalAlignment="Left" Margin="84,0,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top"/>
+                        <Button Content="Search" HorizontalAlignment="Left" Margin="69,118,0,0" VerticalAlignment="Top" Width="70" Height="20" FontSize="10" Click="SearchUpdate"/>
+                        <TextBox Name="UpdateSearchBox" HorizontalAlignment="Left" Height="23" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,33,0,0" TextWrapping="Wrap" Text="Table" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="UpdateComboColumnBox" HorizontalAlignment="Left" Margin="120,49,0,0" VerticalAlignment="Top" Width="89"  />
+                        <TextBlock HorizontalAlignment="Left" Margin="120,33,0,0" TextWrapping="Wrap" Text="Column" VerticalAlignment="Top"/>
+                        <ComboBox Name="UpdateTableData" HorizontalAlignment="Left" Margin="9,49,0,0" VerticalAlignment="Top" Width="90" SelectionChanged="OnTimedUpdate"/>
+                        <TextBlock Name="UpdateErrorSearchText" HorizontalAlignment="Left" Margin="9,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+
+                    </Grid>
+                </Border>
 
             </Grid>
         </TabItem>

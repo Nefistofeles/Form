@@ -9,6 +9,9 @@ namespace AdminPanel.DAO
 {
     public class FormDAO
     {
+        public FormDAO()
+        {
+        }
         public void Insert(MySqlConnection connection, Form form)
         {
             string query = "insert into form(id, name, tag, information, isActive) values(DEFAULT" + ",'" + form.Name + "','" + form.Tag + "','" + form.Information + "'," + form.IsActive + ");";
@@ -26,7 +29,7 @@ namespace AdminPanel.DAO
         }
         public void Update(MySqlConnection connection, Form form)
         {
-            string query = "Update form set name = '" + form.Name + "'," + "tag = '" + form.Tag + "'," + "information = '" + form.Information + "'," + "isActive = " + form.IsActive + " where id = " + form.Id ;
+            string query = "Update form set name = '" + form.Name + "'," + "tag = '" + form.Tag + "'," + "information = '" + form.Information + "'," + "isActive = " + form.IsActive + " where id = " + form.Id;
 
             try
             {
@@ -38,7 +41,7 @@ namespace AdminPanel.DAO
             {
                 Console.WriteLine(e.ToString());
             }
-                
+
         }
         public void Delete(MySqlConnection connection, Form form)
         {
@@ -55,13 +58,13 @@ namespace AdminPanel.DAO
                 Console.WriteLine(e.ToString());
             }
         }
-        
+
         public List<Form> GetList(MySqlConnection connection)
         {
             List<Form> formList = new List<Form>();
             string query = "Select * from form";
             MySqlCommand command = new MySqlCommand(query, connection);
-                
+
             try
             {
                 MySqlDataReader reader = command.ExecuteReader();
@@ -70,13 +73,41 @@ namespace AdminPanel.DAO
                     while (reader.Read())
                     {
                         formList.Add(new Form(reader.GetInt16("id"), reader.GetString("tag"), reader.GetString("name"), reader.GetString("information"), reader.GetBoolean("isActive")));
-                        
+
                     }
                 }
 
                 command.Dispose();
                 reader.Dispose();
-               
+
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return formList;
+        }
+        public List<Form> GetListForSearch(MySqlConnection connection, string columnName, string searchString)
+        {
+            List<Form> formList = new List<Form>();
+            string query = "Select * from form where " + columnName + " LIKE '" + searchString + "';";
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        formList.Add(new Form(reader.GetInt16("id"), reader.GetString("tag"), reader.GetString("name"), reader.GetString("information"), reader.GetBoolean("isActive")));
+
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+
             }
             catch (Exception error)
             {
@@ -86,7 +117,7 @@ namespace AdminPanel.DAO
         }
         public Form GetForm(MySqlConnection connection, int id)
         {
-            Form form = null ;
+            Form form = null;
             string query = "select * from form where id = " + id;
 
             try
@@ -110,5 +141,65 @@ namespace AdminPanel.DAO
 
             return form;
         }
+        public List<string> FindColumnNamesOnlyString(MySqlConnection connection)
+        {
+            List<string> columnNames = new List<string>();
+            string query = "show columns from form";
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if(reader.GetString("Type").Contains("varchar") || reader.GetString("Type").Contains("text"))
+                            columnNames.Add(reader.GetString("Field"));
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return columnNames;
+        }
+        public List<string> FindColumnNamesAndInformation(MySqlConnection connection, out List<string> typeInformation)
+        {
+            List<string> columnNames = new List<string>();
+            typeInformation = new List<string>();
+            string query = "show columns from form";
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            try
+            {
+                MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        columnNames.Add(reader.GetString("Field"));
+                        typeInformation.Add(reader.GetString("Type"));
+
+                    }
+                }
+
+                command.Dispose();
+                reader.Dispose();
+
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return columnNames;
+        }
     }
+   
 }

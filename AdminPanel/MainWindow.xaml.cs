@@ -20,23 +20,39 @@ namespace AdminPanel
 {
     public partial class MainWindow : Window
     {
+
         private FormDAO formdata;
         private QuestionDAO questiondata;
         private QuestionOptionDAO questionOptiondata;
 
-        private List<Form> forms;
-        private List<Question> questions;
-        private List<QuestionOption> questionOptions;
+        private List<string> tableDatas;
+
+        private List<string> formColumnNames;
+        private List<string> questionColumnNames;
+        private List<string> questionOptionColumnNames;
+
 
         public MainWindow()
         {
             InitializeComponent();
+
+            tableDatas = new List<string>();
+            tableDatas.Add("form");
+            tableDatas.Add("question");
+            tableDatas.Add("question_option");
+            UpdateTableData.ItemsSource = tableDatas;
+            DeleteTableData.ItemsSource = tableDatas;
+
             formdata = new FormDAO();
             questiondata = new QuestionDAO(formdata);
             questionOptiondata = new QuestionOptionDAO(questiondata);
-            forms = new List<Form>();
-            questions = new List<Question>();
-            questionOptions = new List<QuestionOption>();
+
+            MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
+            connection.Open();
+            formColumnNames = formdata.FindColumnNamesOnlyString(connection);
+            questionColumnNames = questiondata.FindColumnNamesOnlyString(connection);
+            questionOptionColumnNames = questionOptiondata.FindColumnNamesOnlyString(connection);
+            connection.Close();
 
         }
 
@@ -302,5 +318,113 @@ namespace AdminPanel
             connection.Close();
         }
 
+        private void SearchUpdate(object sender, EventArgs e)
+        {
+            MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
+            connection.Open();
+            string searchString = UpdateSearchBox.Text;
+            string selectedColumnName = UpdateComboColumnBox.SelectedItem as string;
+            string selectedTableData = UpdateTableData.SelectedItem as string;
+
+            if (selectedColumnName == null || selectedTableData == null || string.IsNullOrEmpty(searchString))
+            {
+                UpdateErrorSearchText.Text = "Please select column or form ";
+            }
+            else
+            {
+                if (selectedTableData.Contains("form"))
+                {
+                    FormListUpdate.ItemsSource = formdata.GetListForSearch(connection, selectedColumnName, searchString);
+                }
+                else if (selectedTableData.Contains("option"))
+                {
+                    QuestionOptionListUpdate.ItemsSource = questionOptiondata.GetListForSearch(connection, selectedColumnName, searchString);
+                }
+                else if (selectedTableData.Contains("question"))
+                {
+                    QuestionListUpdate.ItemsSource = questiondata.GetListForSearch(connection, selectedColumnName, searchString);
+                }
+                UpdateErrorSearchText.Text = "";
+
+            }
+            connection.Close();
+        }
+        private void SearchDelete(object sender, EventArgs e)
+        {
+            MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
+            connection.Open();
+            string searchString = DeleteSearchBox.Text;
+            string selectedColumnName = DeleteComboColumnBox.SelectedItem as string;
+            string selectedTableData = DeleteTableData.SelectedItem as string;
+            
+            if (selectedColumnName == null || selectedTableData == null || string.IsNullOrEmpty(searchString))
+            {
+                DeleteErrorSearchText.Text = "Please select column or form ";
+            }
+            else
+            {
+                if (selectedTableData.Contains("form"))
+                {
+                    FormListDelete.ItemsSource = formdata.GetListForSearch(connection, selectedColumnName, searchString);
+                }
+                else if (selectedTableData.Contains("option"))
+                {
+                    QuestionOptionListDelete.ItemsSource = questionOptiondata.GetListForSearch(connection, selectedColumnName, searchString);
+                }
+                else if (selectedTableData.Contains("question"))
+                {
+                    QuestionListDelete.ItemsSource =  questiondata.GetListForSearch(connection, selectedColumnName, searchString);
+                }
+                DeleteErrorSearchText.Text = "";
+
+            }
+            connection.Close();
+        }
+
+        private void OnTimedUpdate(object sender, EventArgs e)
+        {
+            string selected = UpdateTableData.SelectedItem as string;
+            Console.WriteLine("updated " + selected);
+
+            if(selected != null){
+                if (selected.Contains("form"))
+                {
+                    UpdateComboColumnBox.ItemsSource = formColumnNames;
+                }
+                else if (selected.Contains("option"))
+                {
+                    UpdateComboColumnBox.ItemsSource = questionOptionColumnNames;
+                }
+                else if (selected.Contains("question"))
+                {
+                    UpdateComboColumnBox.ItemsSource = questionColumnNames;
+                }
+               
+            }
+
+        }
+        private void OnTimedDelete(object sender, EventArgs e)
+        {
+            string selected = DeleteTableData.SelectedItem as string;
+
+            if (selected != null)
+            {
+                if (selected.Contains("form"))
+                {
+                    DeleteComboColumnBox.ItemsSource = formColumnNames;
+                }
+                else if (selected.Contains("option"))
+                {
+                    DeleteComboColumnBox.ItemsSource = questionOptionColumnNames;
+                }
+                else if (selected.Contains("question"))
+                {
+                    DeleteComboColumnBox.ItemsSource = questionColumnNames;
+                }
+               
+            }
+
+        }
+        
     }
 }
