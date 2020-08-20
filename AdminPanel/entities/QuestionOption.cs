@@ -13,6 +13,10 @@ namespace AdminPanel
         private int point;
         private int question_id;
 
+        public QuestionOption()
+        {
+
+        }
         public QuestionOption(int id, string option_string, int point, int question_id)
         {
             this.Id = id;

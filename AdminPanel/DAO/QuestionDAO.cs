@@ -31,7 +31,7 @@ namespace AdminPanel.DAO
         }
         public void Update(MySqlConnection connection, Question question)
         {
-            string query = "Update question set question_string = '" + question.Question_string + "'," + "form_id = " + question.Form_id + " where id = " + question.Id + " where id = " + question.Id;
+            string query = "Update question set question_string = '" + question.Question_string + "'," + "form_id = " + question.Form_id + " where id = " + question.Id;
 
             try
             {
@@ -130,7 +130,7 @@ namespace AdminPanel.DAO
                 {
                     if (reader.Read())
                     {
-                        question = new Question(reader.GetInt16("id"), reader.GetString("question_string"), reader.GetInt16("question.form_id"));
+                        question = new Question(reader.GetInt16("id"), reader.GetString("question_string"), reader.GetInt16("form_id"));
                     }
                 }
                 command.Dispose();

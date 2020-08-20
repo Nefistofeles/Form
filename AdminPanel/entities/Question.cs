@@ -12,6 +12,10 @@ namespace AdminPanel
         private string question_string;
         private int form_id;
 
+        public Question()
+        {
+
+        }
         public Question(int id, string question_string, int form_id)
         {
             this.Id = id;
