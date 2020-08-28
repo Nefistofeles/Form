@@ -9,10 +9,8 @@ namespace AdminPanel.DAO
 {
     public class QuestionDAO
     {
-        private FormDAO formdata;
-        public QuestionDAO(FormDAO formdata)
+        public QuestionDAO()
         {
-            this.formdata = formdata;
 
         }
         public void Insert(MySqlConnection connection, Question question)

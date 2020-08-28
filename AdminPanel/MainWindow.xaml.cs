@@ -24,12 +24,14 @@ namespace AdminPanel
         private FormDAO formdata;
         private QuestionDAO questiondata;
         private QuestionOptionDAO questionOptiondata;
+        private ResultDAO resultdata;
 
         private List<string> tableDatas;
 
         private List<string> formColumnNames;
         private List<string> questionColumnNames;
         private List<string> questionOptionColumnNames;
+        private List<string> resultColumnNames;
 
 
         public MainWindow()
@@ -44,14 +46,16 @@ namespace AdminPanel
             DeleteTableData.ItemsSource = tableDatas;
 
             formdata = new FormDAO();
-            questiondata = new QuestionDAO(formdata);
-            questionOptiondata = new QuestionOptionDAO(questiondata);
+            questiondata = new QuestionDAO();
+            questionOptiondata = new QuestionOptionDAO();
+            resultdata = new ResultDAO();
 
             MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
             connection.Open();
             formColumnNames = formdata.FindColumnNamesOnlyString(connection);
             questionColumnNames = questiondata.FindColumnNamesOnlyString(connection);
             questionOptionColumnNames = questionOptiondata.FindColumnNamesOnlyString(connection);
+            resultColumnNames = resultdata.FindColumnNamesOnlyString(connection);
             connection.Close();
 
         }
@@ -424,6 +428,15 @@ namespace AdminPanel
                
             }
 
+        }
+        private void SearchResult(object sender, EventArgs e)
+        {
+            MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
+            connection.Open();
+            List<Result> resultList = resultdata.GetList(connection);
+            ResultList.ItemsSource = resultList;
+
+            connection.Close();
         }
         
     }

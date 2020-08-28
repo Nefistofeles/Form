@@ -7,6 +7,15 @@
 		
 		<link rel="stylesheet" href="index.css">
 		<link rel="stylesheet" href="SelectedCard.css">
+		<script>
+			function validateForm() {
+			  var x = document.forms["myForm"]["ename"].value;
+			  if (x == "" || x == null) {
+				alert("Lütfen e-mailinizi giriniz");
+				return false;
+			  }
+			}
+		</script>
 	</head>
 	<body>
 		<?php
@@ -18,7 +27,7 @@
 			
 			$result = $conn->query($sql) ;
 			if($row = $result->fetch_assoc()){
-				$name = $row['name'] ; 
+				$name = $row['name'] ;
 				$information = $row['information'] ;
 					
 				echo '<div class = "container-fluid overflow-visible" style="text-align : center ;  background-color : #00ff99 ; padding-bottom : 1rem ;  padding-top : 1rem ;  ">' .
@@ -39,22 +48,23 @@
 			}
 			mysqli_close($conn); 
 		?>
-		<?php 
-		
-		?>
-		
-		<form action="result.php" method= "POST">
-			<div class="container" style="position : relative ; height:380px">
-				<div >
+		<div class="container" style="position : relative ; height:380px">
+			<div >
+				<form name="myForm" action="result.php" method= "POST" onsubmit="return validateForm()">
+
 					<?php 
 						echo '<ul class="list-group">' ;
 						$question_data = "";
 						$question_number = 1 ;
 						$question_option_number = 0 ;
-						  echo '<div class="container-fluid">' . 
+						$form_id = 0 ;
+						
+						echo '<div class="container-fluid">' . 
 								  '<div class="row">'; 
-						  while($row = $result->fetch_assoc()){
-							
+						while($row = $result->fetch_assoc()){
+							if($form_id == 0){
+								$form_id = $row["form_id"];
+							}
 							$question_string = $row["question_string"] ;
 							if(strcmp ($question_string , $question_data) == 0){
 								$question_option_number++ ;
@@ -79,18 +89,29 @@
 									'</div>'
 							;
 							echo '<input type ="hidden" name= "question_number" value='.$question_number.'>' ;
-							
+							echo '<input type ="hidden" name= "form_id" value='.$form_id.'>' ;
 							
 						}
 						echo '</div>' .
 								'</div>' ; 
 						echo "</ul>" ;
 					?>
-					<div class="container-fluid" style=" text-align: center; padding : 1rem ; size: 4rem ; ">
+					<!--<div class="container-fluid" style=" text-align: center; padding : 1rem ; size: 4rem ; ">
 						<input class="btn btn-primary btn-lg" type="submit" name="insertValue" value="Bitir">
+					</div>-->
+					<div class="container-fluid" style=" text-align: center; padding : 1rem ; size: 4rem ; ">
+						<div class="input-group mb-3">
+							<input name="ename" type="email" class="form-control" placeholder="xxxxx@hotmail.com" aria-label="E-Mail" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<!--<span class="input-group-text" id="basic-addon2">@example.com</span>-->
+							  <div class="input-group-append">
+								<button class="btn btn-outline-secondary" name="insertValue" type="submit">Bitir</button>
+							  </div>
+							</div>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
-		</form>
+		</div>
 	</body>
 </html>
