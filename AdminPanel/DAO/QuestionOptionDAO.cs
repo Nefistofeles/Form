@@ -89,7 +89,7 @@ namespace AdminPanel.DAO
         public List<QuestionOption> GetListForSearch(MySqlConnection connection, string columnName, string searchText)
         {
             List<QuestionOption> questionOptionList = new List<QuestionOption>();
-            string query = "Select * from question_option where " + columnName + " LIKE '" + searchText + "';";
+            string query = "Select * from question_option where " + columnName + " LIKE '%" + searchText + "%';";
             MySqlCommand command = new MySqlCommand(query, connection);
 
             try

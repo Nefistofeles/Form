@@ -3,234 +3,320 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       
         xmlns:local="clr-namespace:AdminPanel"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200" Background="#FF0A0909" FontWeight="Bold" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
+
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Background" Value="#1b1c1b"/>
-            <Setter Property="Foreground" Value="White"/>
+        <ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBox}">
+            <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="Blue"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="Width" Value="Auto">
+                    <Setter Property="MinWidth" Value="100"/>
+                </Trigger>
+                <Trigger Property="Height" Value="Auto">
+                    <Setter Property="MinHeight" Value="20"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="{x:Type TextBox}">
+
+
+        </Style>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="4"></Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#373737" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Height" Value="31"/>
+            <Setter Property="Width" Value="156"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Path x:Name="PathIcon" Width="20" Height="15" Stretch="Fill" Fill="#4C87B3" HorizontalAlignment="Left" Margin="5,0,0,0" Data="F1 M 19.0002,34L 19.0002,42L 43.7502,42L 33.7502,52L 44.2502,52L 58.2502,38L 44.2502,24L 33.7502,24L 43.7502,34L 19.0002,34 Z "/>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E59400" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter TargetName="PathIcon" Property="Fill" Value="Black" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="OrangeRed" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
-    <TabControl Margin="20" BorderBrush="Gainsboro">
-        <TabItem Header="Create">
-
+    <Grid>
+        <Border Name="UsersConnection" Background="PaleGreen" BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="731" Margin="20,20,0,0" VerticalAlignment="Top" Width="1154">
             <Grid>
-                <!--Create Form-->
-                <TextBlock HorizontalAlignment="Left" Margin="24,25,0,0" TextWrapping="Wrap" Text="Create Form" VerticalAlignment="Top" Height="30" Width="199" FontSize="20" TextAlignment="Center" FontWeight="Bold"/>
-                <TextBlock HorizontalAlignment="Left" Margin="24,71,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
-                <TextBox Name="FormNameBoxCreate" HorizontalAlignment="Left" Height="23" Margin="24,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
-                <TextBlock HorizontalAlignment="Left" Margin="24,130,0,0" TextWrapping="Wrap" Text="Tag" VerticalAlignment="Top"/>
-                <TextBox Name="FormTagBoxCreate" HorizontalAlignment="Left" Height="53" Margin="24,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
-                <TextBlock HorizontalAlignment="Left" Margin="23,220,0,0" TextWrapping="Wrap" Text="IsActive" VerticalAlignment="Top"/>
-                <TextBlock HorizontalAlignment="Left" Margin="24,275,0,0" TextWrapping="Wrap" Text="Information" VerticalAlignment="Top"/>
-                <TextBox Name="FormInformationBoxCreate" HorizontalAlignment="Left" Height="161" Margin="24,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
-                <CheckBox Name="FormIsActiveCreate" Content="Active" HorizontalAlignment="Left" Margin="24,241,0,0" VerticalAlignment="Top" Height="20" Width="83"/>
-                <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="510" Margin="10,25,0,0" VerticalAlignment="Top" Width="227"/>
-                <Button Content="Create Form" HorizontalAlignment="Left" Margin="37,485,0,0" VerticalAlignment="Top" Width="163" Height="35" Click="CreateForm"/>
-                <!--Create Question-->
-                <TextBlock HorizontalAlignment="Left" Margin="267,25,0,0" TextWrapping="Wrap" Text="Create Question" VerticalAlignment="Top" Height="30" Width="199" FontSize="20" TextAlignment="Center" FontWeight="Bold"/>
-                <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="510" Margin="257,25,0,0" VerticalAlignment="Top" Width="227"/>
-                <TextBox Name="QuestionStringBoxCreate" HorizontalAlignment="Left" Height="169" Margin="267,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
-                <TextBlock HorizontalAlignment="Left" Margin="267,71,0,0" TextWrapping="Wrap" Text="Question String" VerticalAlignment="Top"/>
-                <Button Content="Create Question" HorizontalAlignment="Left" Margin="282,485,0,0" VerticalAlignment="Top" Width="165" Height="35" Click="CreateQuestion"/>
-                <TextBlock HorizontalAlignment="Left" Margin="282,399,0,0" TextWrapping="Wrap" Text="You must select form from form list!!." VerticalAlignment="Top" Height="58" Width="199" Background="White" Foreground="#FFDA2A2A" FontSize="15"/>
-                <!--Create Question Option-->
-                <TextBlock HorizontalAlignment="Left" Margin="527,25,0,0" TextWrapping="Wrap" Text="Create Option" VerticalAlignment="Top" Height="30" Width="199" FontSize="20" TextAlignment="Center" FontWeight="Bold"/>
-                <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="510" Margin="512,25,0,0" VerticalAlignment="Top" Width="235"/>
-                <TextBox Name="OptionBoxCreate" HorizontalAlignment="Left" Height="169" Margin="527,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
-                <TextBlock HorizontalAlignment="Left" Margin="533,71,0,0" TextWrapping="Wrap" Text="Option" VerticalAlignment="Top"/>
-                <TextBlock HorizontalAlignment="Left" Margin="533,275,0,0" TextWrapping="Wrap" Text="Point" VerticalAlignment="Top"/>
-                <TextBox Name="PointBoxCreate" HorizontalAlignment="Left" Height="23" Margin="533,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
-                <Button Content="Create Option" HorizontalAlignment="Left" Margin="547,485,0,0" VerticalAlignment="Top" Width="165" Height="35" Click="CreateQuestionOption"/>
-                <TextBlock HorizontalAlignment="Left" Margin="533,399,0,0" TextWrapping="Wrap" Text="You must select Question from question list!!." VerticalAlignment="Top" Height="58" Width="199" Background="White" Foreground="#FFDA2A2A" FontSize="15"/>
-
-                <!--Error Text-->
-                <TextBlock Name="ErrorBoxCreate" HorizontalAlignment="Left" Margin="10,615,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="78" Width="1128" FontSize="20" FontWeight="Bold"/>
-
-                <TextBlock HorizontalAlignment="Left" Margin="762,33,0,0" TextWrapping="Wrap" Text="Created Form List" VerticalAlignment="Top" Height="30" Width="209" FontSize="20" FontWeight="Bold"/>
-                <ListView Margin="762,76,10,412" Name="FormListCreate" SelectionChanged="SelectedItem">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Header="IsActive"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Information}" Header="Information"></GridViewColumn>
-
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <TextBlock HorizontalAlignment="Left" Margin="762,311,0,0" TextWrapping="Wrap" Text="Created Question List" VerticalAlignment="Top" Height="30" Width="235" FontSize="20" FontWeight="Bold"/>
-                <ListView Name="QuestionListCreate" HorizontalAlignment="Left" Height="189" Margin="762,346,0,0" VerticalAlignment="Top" Width="386" SelectionChanged="SelectedQuestionItem">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Question_string}" Header="Name"></GridViewColumn>
-
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Button Content="Find Forms" HorizontalAlignment="Left" Margin="971,40,0,0" VerticalAlignment="Top" Width="167" Click="FindFormListForCreate"/>
-                <Button Content="Find Questions" HorizontalAlignment="Left" Margin="982,309,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="FindQuestionListForCreate"/>
+                <TextBox Template="{StaticResource TextBoxBaseControlTemplate}" BorderThickness="1" Name="Nickname" TextWrapping="Wrap" Margin="477,225,416,453" TextAlignment="Center" FontSize="25" />
+                <TextBox Template="{StaticResource TextBoxBaseControlTemplate}" BorderThickness="1" Name="Password" TextWrapping="Wrap" Text="" Margin="477,322,416,356" FontSize="25" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Margin="477,200,0,0" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Top" Width="70" Height="20"/>
+                <TextBlock HorizontalAlignment="Left" Margin="477,302,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="70" Height="20"/>
+                <Button Content="Button" HorizontalAlignment="Left" Margin="542,386,0,0" VerticalAlignment="Top" Width="130" Click="UsersControl"/>
+                <TextBlock Name="ErrorUserTextBlock" Visibility="Hidden" HorizontalAlignment="Left" Margin="297,446,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="36" Width="620" FontSize="20" TextAlignment="Center"/>
             </Grid>
-        </TabItem>
-        <TabItem Header="Delete">
-            <Grid>
-                <TextBlock HorizontalAlignment="Left" Margin="10,195,0,0" TextWrapping="Wrap" Text="Form Delete" VerticalAlignment="Top" Height="30" Width="135" Background="White" Foreground="Black" FontSize="15" TextAlignment="Center"/>
-                <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="346" Margin="0,184,0,0" VerticalAlignment="Top" Width="507"/>
-                <ListView Margin="10,232,671,188" Name="FormListDelete" SelectionChanged="SelectedItem">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Header="IsActive"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Information}" Header="Information"></GridViewColumn>
+        </Border>
+        <TabControl Name="DatabaseTab" Margin="20" BorderBrush="Gainsboro" Visibility="Hidden">
+            <TabItem Header="Create" Background="Bisque">
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <TextBlock HorizontalAlignment="Left" Margin="570,20,0,0" TextWrapping="Wrap" Text="Question Delete" VerticalAlignment="Top" Height="30" Width="217" Background="White" Foreground="Black" FontSize="15" TextAlignment="Center"/>
-                <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="310" Margin="570,10,0,0" VerticalAlignment="Top" Width="568"/>
-                <ListView Name="QuestionListDelete" HorizontalAlignment="Left" Height="246" Margin="587,49,0,0" VerticalAlignment="Top" Width="537" SelectionChanged="SelectedQuestionItem">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Question_string}" Header="Name"></GridViewColumn>
+                <Grid Background="Bisque">
+                    <!--Create Form-->
+                    <TextBlock HorizontalAlignment="Left" Margin="24,25,0,0" TextWrapping="Wrap" Text="Create Form" VerticalAlignment="Top" Height="30" Width="199" FontSize="20" TextAlignment="Center" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="24,71,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
+                    <TextBox Name="FormNameBoxCreate" HorizontalAlignment="Left" Height="23" Margin="24,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="24,130,0,0" TextWrapping="Wrap" Text="Tag" VerticalAlignment="Top"/>
+                    <TextBox Name="FormTagBoxCreate" HorizontalAlignment="Left" Height="53" Margin="24,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="23,220,0,0" TextWrapping="Wrap" Text="IsActive" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="24,275,0,0" TextWrapping="Wrap" Text="Information" VerticalAlignment="Top"/>
+                    <TextBox Name="FormInformationBoxCreate" HorizontalAlignment="Left" Height="161" Margin="24,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
+                    <CheckBox Name="FormIsActiveCreate" Content="Active" HorizontalAlignment="Left" Margin="24,241,0,0" VerticalAlignment="Top" Height="20" Width="83"/>
+                    <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="510" Margin="10,25,0,0" VerticalAlignment="Top" Width="227"/>
+                    <Button Content="Create Form" HorizontalAlignment="Left" Margin="37,485,0,0" VerticalAlignment="Top" Click="CreateForm"/>
+                    <!--Create Question-->
+                    <TextBlock HorizontalAlignment="Left" Margin="267,25,0,0" TextWrapping="Wrap" Text="Create Question" VerticalAlignment="Top" Height="30" Width="199" FontSize="20" TextAlignment="Center" FontWeight="Bold"/>
+                    <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="510" Margin="257,25,0,0" VerticalAlignment="Top" Width="227"/>
+                    <TextBox Name="QuestionStringBoxCreate" HorizontalAlignment="Left" Height="169" Margin="267,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="267,71,0,0" TextWrapping="Wrap" Text="Question String" VerticalAlignment="Top"/>
+                    <Button Content="Create Question" HorizontalAlignment="Left" Margin="290,485,0,0" VerticalAlignment="Top"  Click="CreateQuestion"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="282,399,0,0" TextWrapping="Wrap" Text="You must select form from form list!!." VerticalAlignment="Top" Height="58" Width="199" Background="White" Foreground="#FFDA2A2A" FontSize="15"/>
+                    <!--Create Question Option-->
+                    <TextBlock HorizontalAlignment="Left" Margin="527,25,0,0" TextWrapping="Wrap" Text="Create Option" VerticalAlignment="Top" Height="30" Width="199" FontSize="20" TextAlignment="Center" FontWeight="Bold"/>
+                    <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="510" Margin="512,25,0,0" VerticalAlignment="Top" Width="235"/>
+                    <TextBox Name="OptionBoxCreate" HorizontalAlignment="Left" Height="169" Margin="527,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="533,71,0,0" TextWrapping="Wrap" Text="Option" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="533,275,0,0" TextWrapping="Wrap" Text="Point" VerticalAlignment="Top"/>
+                    <TextBox Name="PointBoxCreate" HorizontalAlignment="Left" Height="23" Margin="533,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
+                    <Button Content="Create Option" HorizontalAlignment="Left" Margin="547,485,0,0" VerticalAlignment="Top" Click="CreateQuestionOption"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="533,399,0,0" TextWrapping="Wrap" Text="You must select Question from question list!!." VerticalAlignment="Top" Height="58" Width="199" Background="White" Foreground="#FFDA2A2A" FontSize="15"/>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <TextBlock HorizontalAlignment="Left" Margin="570,340,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="217" Background="White" Foreground="Black" FontSize="15" TextAlignment="Center"><Run Text="Question Option Delete"/><LineBreak/><Run/></TextBlock>
-                <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="325" Margin="570,325,0,0" VerticalAlignment="Top" Width="568"/>
-                <ListView Name="QuestionOptionListDelete" HorizontalAlignment="Left" Height="255" Margin="587,375,0,0" VerticalAlignment="Top" Width="537" SelectionChanged="SelectedQuestionOptionItem">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Option_string}" Header="Option_String"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Point}" Header="Point"></GridViewColumn>
+                    <!--Error Text-->
+                    <TextBlock Name="ErrorBoxCreate" HorizontalAlignment="Left" Margin="10,615,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="78" Width="1128" FontSize="20" FontWeight="Bold"/>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Button Content="Delete" HorizontalAlignment="Left" Margin="968,661,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="AreYouSure" />
-                <Button Content="Find" HorizontalAlignment="Left" Margin="968,338,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="FindQuestionOption"/>
-                <Button Content="Find" HorizontalAlignment="Left" Margin="968,17,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="FindQuestion"/>
-                <Button Content="Find" HorizontalAlignment="Left" Margin="321,195,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="FindForm"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="762,33,0,0" TextWrapping="Wrap" Text="Created Form List" VerticalAlignment="Top" Height="30" Width="209" FontSize="20" FontWeight="Bold"/>
+                    <ListView Margin="762,76,10,412" Name="FormListCreate" SelectionChanged="SelectedItem">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Header="IsActive"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Information}" Header="Information"></GridViewColumn>
 
-                <Border Name="ControlBorder" Visibility="Hidden" BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Right" Height="158" Margin="0,535,756,0" VerticalAlignment="Top" Width="382">
-                    <Grid Margin="7,7,14,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100*"/>
-                            <RowDefinition Height="107*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Left" Margin="10,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Width="360" Background="White" Foreground="Black" FontSize="30" TextAlignment="Center" Grid.RowSpan="2"><Run Text="Are you sure?"/><LineBreak/><Run/></TextBlock>
-                        <Button Name="NoButton" Content="No" HorizontalAlignment="Left" Margin="197,8,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="NoButtonFunc" Grid.Row="1"/>
-                        <Button Name="YesButton" Content="Yes" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="YesButtonFunc" Grid.Row="1"/>
-                    </Grid>
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="169" Margin="10,10,0,0" VerticalAlignment="Top" Width="220">
-                    <Grid Margin="-1,0,0,0">
-                        <TextBlock HorizontalAlignment="Left" Margin="84,0,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top"/>
-                        <Button Content="Search" HorizontalAlignment="Left" Margin="69,118,0,0" VerticalAlignment="Top" Width="70" Height="20" FontSize="10" Click="SearchDelete"/>
-                        <TextBox Name="DeleteSearchBox" HorizontalAlignment="Left" Height="23" Margin="44,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="10,33,0,0" TextWrapping="Wrap" Text="Table" VerticalAlignment="Top"/>
-                        <ComboBox x:Name="DeleteComboColumnBox" HorizontalAlignment="Left" Margin="120,49,0,0" VerticalAlignment="Top" Width="89" />
-                        <TextBlock HorizontalAlignment="Left" Margin="120,33,0,0" TextWrapping="Wrap" Text="Column" VerticalAlignment="Top"/>
-                        <ComboBox Name="DeleteTableData" HorizontalAlignment="Left" Margin="9,49,0,0" VerticalAlignment="Top" Width="90" SelectionChanged="OnTimedDelete"/>
-                        <TextBlock Name="DeleteErrorSearchText" HorizontalAlignment="Left" Margin="9,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBlock HorizontalAlignment="Left" Margin="762,311,0,0" TextWrapping="Wrap" Text="Created Question List" VerticalAlignment="Top" Height="30" Width="235" FontSize="20" FontWeight="Bold"/>
+                    <ListView Name="QuestionListCreate" HorizontalAlignment="Left" Height="189" Margin="762,346,0,0" VerticalAlignment="Top" Width="386" SelectionChanged="SelectedQuestionItem">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Question_string}" Header="Name"></GridViewColumn>
 
-                    </Grid>
-                </Border>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Update">
-            <Grid Margin="10,0,2,2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0*"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="281*"/>
-                </Grid.ColumnDefinitions>
-                <Button Content="Find" FontSize="15" Click="Button_Find" Margin="10,10,1036,654" Grid.ColumnSpan="3"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Content="Find Forms" HorizontalAlignment="Left" Margin="982,40,0,0" VerticalAlignment="Top" Click="FindFormListForCreate"/>
+                    <Button Content="Find Questions" HorizontalAlignment="Left" Margin="982,309,0,0" VerticalAlignment="Top" Click="FindQuestionListForCreate" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Delete" Background="Beige">
+                <Grid Background="Beige">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,204,0,0" TextWrapping="Wrap" Text="Form Delete" VerticalAlignment="Top" Height="31" Width="135" Background="White" Foreground="Black" FontSize="15" TextAlignment="Center"/>
+                    <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="335" Margin="0,195,0,0" VerticalAlignment="Top" Width="507"/>
+                    <ListView Margin="10,245,671,188" Name="FormListDelete" SelectionChanged="SelectedItem">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Header="IsActive"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Information}" Header="Information"></GridViewColumn>
 
-                <ListView Margin="0,60,504,286" Name="FormListUpdate" SelectionChanged="SelectedItem" Grid.ColumnSpan="3">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Header="IsActive"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Information}" Header="Information"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBlock HorizontalAlignment="Left" Margin="570,20,0,0" TextWrapping="Wrap" Text="Question Delete" VerticalAlignment="Top" Height="30" Width="217" Background="White" Foreground="Black" FontSize="15" TextAlignment="Center"/>
+                    <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="310" Margin="570,10,0,0" VerticalAlignment="Top" Width="568"/>
+                    <ListView Name="QuestionListDelete" HorizontalAlignment="Left" Height="246" Margin="587,49,0,0" VerticalAlignment="Top" Width="537" SelectionChanged="SelectedQuestionItem">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Question_string}" Header="Name"></GridViewColumn>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <TextBlock HorizontalAlignment="Left" Margin="652,21,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Grid.Column="2"/>
-                <TextBox Name="FormNameBox" HorizontalAlignment="Left" Height="23" Margin="652,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Grid.Column="2"/>
-                <TextBlock HorizontalAlignment="Left" Margin="652,89,0,0" TextWrapping="Wrap" Text="Tag" VerticalAlignment="Top" Grid.Column="2"/>
-                <TextBox Name="FormTagBox" HorizontalAlignment="Left" Height="53" Margin="652,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Grid.Column="2"/>
-                <TextBlock HorizontalAlignment="Left" Margin="652,183,0,0" TextWrapping="Wrap" Text="IsActive" VerticalAlignment="Top" Grid.Column="2"/>
-                <TextBlock HorizontalAlignment="Left" Margin="652,233,0,0" TextWrapping="Wrap" Text="Information" VerticalAlignment="Top" Grid.Column="2"/>
-                <TextBox Name="FormInformationBox" HorizontalAlignment="Left" Height="161" Margin="652,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Grid.Column="2"/>
-                <CheckBox Name="FormIsActive" Content="Active" HorizontalAlignment="Left" Margin="652,204,0,0" VerticalAlignment="Top" Height="20" Width="83" Grid.Column="2"/>
-                <ListView Name="QuestionListUpdate" HorizontalAlignment="Left" Height="246" Margin="0,445,0,0" VerticalAlignment="Top" Width="312" SelectionChanged="SelectedQuestionItem" Grid.ColumnSpan="3">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Question_string}" Header="Name"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBlock HorizontalAlignment="Left" Margin="570,340,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="217" Background="White" Foreground="Black" FontSize="15" TextAlignment="Center"><Run Text="Question Option Delete"/><LineBreak/><Run/></TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Left" Height="325" Margin="570,325,0,0" VerticalAlignment="Top" Width="568"/>
+                    <ListView Name="QuestionOptionListDelete" HorizontalAlignment="Left" Height="255" Margin="587,375,0,0" VerticalAlignment="Top" Width="537" SelectionChanged="SelectedQuestionOptionItem">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Option_string}" Header="Option_String"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Point}" Header="Point"></GridViewColumn>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <TextBlock HorizontalAlignment="Left" Margin="10,424,0,0" TextWrapping="Wrap" Text="Questions" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-                <TextBox Name="QuestionStringBox" HorizontalAlignment="Left" Height="149" Margin="315,466,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Grid.Column="2"/>
-                <TextBlock HorizontalAlignment="Left" Margin="315,445,0,0" TextWrapping="Wrap" Text="Question String" VerticalAlignment="Top" Grid.Column="2"/>
-                <ListView Name="QuestionOptionListUpdate" HorizontalAlignment="Left" Height="246" Margin="485,445,0,0" VerticalAlignment="Top" Width="305" SelectionChanged="SelectedQuestionOptionItem" Grid.Column="2">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Option_string}" Header="Option_String"></GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Point}" Header="Point"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Content="Delete" HorizontalAlignment="Left" Margin="968,661,0,0" VerticalAlignment="Top" Click="AreYouSure" />
+                    <Button Content="Find" HorizontalAlignment="Left" Margin="968,338,0,0" VerticalAlignment="Top" Click="FindQuestionOption"/>
+                    <Button Content="Find" HorizontalAlignment="Left" Margin="968,17,0,0" VerticalAlignment="Top" Click="FindQuestion"/>
+                    <Button Content="Find" HorizontalAlignment="Left" Margin="321,204,0,0" VerticalAlignment="Top" Click="FindForm"/>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <TextBox Name="OptionBox" HorizontalAlignment="Left" Height="146" Margin="810,469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Grid.Column="2"/>
-                <TextBlock HorizontalAlignment="Left" Margin="810,448,0,0" TextWrapping="Wrap" Text="Option" VerticalAlignment="Top" Grid.Column="2"/>
-                <TextBlock HorizontalAlignment="Left" Margin="810,630,0,0" TextWrapping="Wrap" Text="Point" VerticalAlignment="Top" Grid.Column="2"/>
-                <TextBox Name="PointBox" HorizontalAlignment="Left" Height="23" Margin="810,651,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
-                <Button Content="Update" HorizontalAlignment="Left" Margin="1014,630,0,0" VerticalAlignment="Top" Width="100" Height="61" Click="Update" Grid.Column="2"/>
-                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2" HorizontalAlignment="Left" Height="169" Margin="885,21,0,0" VerticalAlignment="Top" Width="220">
-                    <Grid Margin="-1,0,0,0">
-                        <TextBlock HorizontalAlignment="Left" Margin="84,0,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top"/>
-                        <Button Content="Search" HorizontalAlignment="Left" Margin="69,118,0,0" VerticalAlignment="Top" Width="70" Height="20" FontSize="10" Click="SearchUpdate"/>
-                        <TextBox Name="UpdateSearchBox" HorizontalAlignment="Left" Height="23" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="10,33,0,0" TextWrapping="Wrap" Text="Table" VerticalAlignment="Top"/>
-                        <ComboBox x:Name="UpdateComboColumnBox" HorizontalAlignment="Left" Margin="120,49,0,0" VerticalAlignment="Top" Width="89"  />
-                        <TextBlock HorizontalAlignment="Left" Margin="120,33,0,0" TextWrapping="Wrap" Text="Column" VerticalAlignment="Top"/>
-                        <ComboBox Name="UpdateTableData" HorizontalAlignment="Left" Margin="9,49,0,0" VerticalAlignment="Top" Width="90" SelectionChanged="OnTimedUpdate"/>
-                        <TextBlock Name="UpdateErrorSearchText" HorizontalAlignment="Left" Margin="9,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <Border Name="ControlBorder" Visibility="Hidden" BorderBrush="Black" BorderThickness="3" HorizontalAlignment="Right" Height="158" Margin="0,535,756,0" VerticalAlignment="Top" Width="382">
+                        <Grid Margin="7,7,14,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100*"/>
+                                <RowDefinition Height="107*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Width="360" Background="White" Foreground="Black" FontSize="30" TextAlignment="Center" Grid.RowSpan="2"><Run Text="Are you sure?"/><LineBreak/><Run/></TextBlock>
+                            <Button Name="NoButton" Content="No" HorizontalAlignment="Left" Margin="197,8,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="NoButtonFunc" Grid.Row="1"/>
+                            <Button Name="YesButton" Content="Yes" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="156" Height="32" Click="YesButtonFunc" Grid.Row="1"/>
+                        </Grid>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="180" Margin="10,10,0,0" VerticalAlignment="Top" Width="220">
+                        <Grid Margin="-1,0,0,0">
+                            <TextBlock HorizontalAlignment="Left" Margin="84,0,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top"/>
+                            <Button Content="Search" HorizontalAlignment="Left" Margin="26,126,0,0" VerticalAlignment="Top" Width="156" Height="31" FontSize="10" Click="SearchDelete"/>
+                            <TextBox Name="DeleteSearchBox" HorizontalAlignment="Left" Height="23" Margin="44,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,33,0,0" TextWrapping="Wrap" Text="Table" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="DeleteComboColumnBox" HorizontalAlignment="Left" Margin="120,49,0,0" VerticalAlignment="Top" Width="89" />
+                            <TextBlock HorizontalAlignment="Left" Margin="120,33,0,0" TextWrapping="Wrap" Text="Column" VerticalAlignment="Top"/>
+                            <ComboBox Name="DeleteTableData" HorizontalAlignment="Left" Margin="9,49,0,0" VerticalAlignment="Top" Width="90" SelectionChanged="OnTimedDelete"/>
+                            <TextBlock Name="DeleteErrorSearchText" HorizontalAlignment="Left" Margin="10,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
 
-                    </Grid>
-                </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Update" Background="Azure">
+                <Grid Margin="10,0,2,2" Background="Azure">
 
-            </Grid>
-        </TabItem>
-        <TabItem Header="Statistics">
-            <Grid>
-                <Border BorderBrush="Black" BorderThickness="4" HorizontalAlignment="Left" Height="455" Margin="10,10,0,0" VerticalAlignment="Top" Width="627">
 
-                    <Grid Margin="-1,1,1,-1">
-                        <ListView Name="ResultList" HorizontalAlignment="Left" Height="246" VerticalAlignment="Top" Width="305" SelectionChanged="SelectedQuestionOptionItem" Margin="0,10,0,0">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding E_mail}" Header="E_mail"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Point}" Header="Point"/>
+                    <ListView Margin="0,70,504,286" Name="FormListUpdate" SelectionChanged="SelectedItem">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Header="IsActive"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Information}" Header="Information"></GridViewColumn>
 
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <Button Content="Search" HorizontalAlignment="Left" Margin="10,274,0,0" VerticalAlignment="Top" Width="70" Height="20" FontSize="10" Click="SearchResult"/>
-                    </Grid>
-                </Border>
-            </Grid>
-        </TabItem>
-    </TabControl>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Content="Find"  Click="Button_Find" Margin="10,21,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="652,21,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Grid.Column="2"/>
+                    <TextBox Name="FormNameBox" HorizontalAlignment="Left" Height="23" Margin="652,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Grid.Column="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="652,89,0,0" TextWrapping="Wrap" Text="Tag" VerticalAlignment="Top" Grid.Column="2"/>
+                    <TextBox Name="FormTagBox" HorizontalAlignment="Left" Height="53" Margin="652,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Grid.Column="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="652,183,0,0" TextWrapping="Wrap" Text="IsActive" VerticalAlignment="Top" Grid.Column="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="652,233,0,0" TextWrapping="Wrap" Text="Information" VerticalAlignment="Top" Grid.Column="2"/>
+                    <TextBox Name="FormInformationBox" HorizontalAlignment="Left" Height="161" Margin="652,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Grid.Column="2"/>
+                    <CheckBox Name="FormIsActive" Content="Active" HorizontalAlignment="Left" Margin="652,204,0,0" VerticalAlignment="Top" Height="20" Width="83" Grid.Column="2"/>
+                    <ListView Name="QuestionListUpdate" HorizontalAlignment="Left" Height="246" Margin="0,445,0,0" VerticalAlignment="Top" Width="312" SelectionChanged="SelectedQuestionItem" Grid.ColumnSpan="3">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Question_string}" Header="Name"></GridViewColumn>
 
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,424,0,0" TextWrapping="Wrap" Text="Questions" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+                    <TextBox Name="QuestionStringBox" HorizontalAlignment="Left" Height="149" Margin="315,466,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Grid.Column="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="315,445,0,0" TextWrapping="Wrap" Text="Question String" VerticalAlignment="Top" Grid.Column="2"/>
+                    <ListView Name="QuestionOptionListUpdate" HorizontalAlignment="Left" Height="246" Margin="485,445,0,0" VerticalAlignment="Top" Width="305" SelectionChanged="SelectedQuestionOptionItem" Grid.Column="2">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Option_string}" Header="Option_String"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Point}" Header="Point"></GridViewColumn>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBox Name="OptionBox" HorizontalAlignment="Left" Height="146" Margin="810,469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Grid.Column="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="810,448,0,0" TextWrapping="Wrap" Text="Option" VerticalAlignment="Top" Grid.Column="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="810,630,0,0" TextWrapping="Wrap" Text="Point" VerticalAlignment="Top" Grid.Column="2"/>
+                    <TextBox Name="PointBox" HorizontalAlignment="Left" Height="23" Margin="810,651,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
+                    <Button Content="Update" HorizontalAlignment="Left" Margin="958,660,0,0" VerticalAlignment="Top"  Click="Update" Grid.Column="2"/>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="194" Margin="885,21,0,0" VerticalAlignment="Top" Width="220">
+                        <Grid Margin="-1,0,0,0">
+                            <TextBlock HorizontalAlignment="Left" Margin="84,0,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top"/>
+                            <Button Content="Search" HorizontalAlignment="Left" Margin="35,126,0,0" VerticalAlignment="Top" FontSize="10" Click="SearchUpdate"/>
+                            <TextBox Name="UpdateSearchBox" HorizontalAlignment="Left" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" Height="25"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,33,0,0" TextWrapping="Wrap" Text="Table" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="UpdateComboColumnBox" HorizontalAlignment="Left" Margin="120,49,0,0" VerticalAlignment="Top" Width="89"  />
+                            <TextBlock HorizontalAlignment="Left" Margin="120,33,0,0" TextWrapping="Wrap" Text="Column" VerticalAlignment="Top"/>
+                            <ComboBox Name="UpdateTableData" HorizontalAlignment="Left" Margin="9,49,0,0" VerticalAlignment="Top" Width="90" SelectionChanged="OnTimedUpdate"/>
+                            <TextBlock Name="UpdateErrorSearchText" HorizontalAlignment="Left" Margin="9,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+
+                        </Grid>
+                    </Border>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Statistics" Background="Aquamarine">
+                <Grid Background="Aquamarine">
+                    <Border BorderBrush="Black" BorderThickness="4" HorizontalAlignment="Left" Height="455" Margin="10,10,0,0" VerticalAlignment="Top" Width="1128">
+
+                        <Grid Margin="-1,1,1,-1">
+                            <Button Content="Search" HorizontalAlignment="Left" Margin="10,406,0,0" VerticalAlignment="Top" Click="SearchResultForStatistic"/>
+                            <ListView Margin="10,10,731,62" x:Name="StatisticFormList" SelectionChanged="SelectedItemFormStatistic">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Header="IsActive"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Information}" Header="Information"/>
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <ListView Margin="414,10,426,62" x:Name="StatisticResultList" >
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Point}" Header="Point"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding E_mail}" Header="E_mail"/>
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <TextBlock HorizontalAlignment="Left" Margin="924,30,0,0" TextWrapping="Wrap" Text="0 - 20" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="924,65,0,0" TextWrapping="Wrap" Text="21 - 40" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="924,100,0,0" TextWrapping="Wrap" Text="41 - 60" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="924,135,0,0" TextWrapping="Wrap" Text="61 - 80" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="924,170,0,0" TextWrapping="Wrap" Text="81 - 100" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="924,205,0,0" TextWrapping="Wrap" Text="&gt;100" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock Name="text020" HorizontalAlignment="Left" Margin="1024,30,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock Name="text2140" HorizontalAlignment="Left" Margin="1024,65,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock Name="text4160" HorizontalAlignment="Left" Margin="1024,100,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock Name="text6180" HorizontalAlignment="Left" Margin="1024,135,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock Name="text81100" HorizontalAlignment="Left" Margin="1024,170,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock Name="text100must" HorizontalAlignment="Left" Margin="1024,205,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="30" Width="80" FontSize="20" TextAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
 
 </Window>

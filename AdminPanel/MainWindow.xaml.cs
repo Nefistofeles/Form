@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AdminPanel.DAO;
+using AdminPanel.entities;
 using MySql.Data.MySqlClient;
 
 namespace AdminPanel
@@ -25,6 +26,7 @@ namespace AdminPanel
         private QuestionDAO questiondata;
         private QuestionOptionDAO questionOptiondata;
         private ResultDAO resultdata;
+        private UsersDAO usersdata;
 
         private List<string> tableDatas;
 
@@ -49,6 +51,7 @@ namespace AdminPanel
             questiondata = new QuestionDAO();
             questionOptiondata = new QuestionOptionDAO();
             resultdata = new ResultDAO();
+            usersdata = new UsersDAO();
 
             MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
             connection.Open();
@@ -429,15 +432,92 @@ namespace AdminPanel
             }
 
         }
-        private void SearchResult(object sender, EventArgs e)
+        private void SearchResultForStatistic(object sender, EventArgs e)
         {
             MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
             connection.Open();
-            List<Result> resultList = resultdata.GetList(connection);
-            ResultList.ItemsSource = resultList;
+            List<Form> formlist = formdata.GetList(connection);
+            StatisticFormList.ItemsSource = formlist;
 
             connection.Close();
         }
-        
+
+        private void SelectedItemFormStatistic(object sender, EventArgs e)
+        {
+            text020.Text = "" + 0;
+            text2140.Text = "" + 0;
+            text4160.Text = "" + 0;
+            text6180.Text = "" + 0;
+            text81100.Text = "" + 0;
+            text100must.Text = "" + 0;
+            MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
+            connection.Open();
+           
+            Form form = StatisticFormList.SelectedItem as Form;
+            List<Result> resultList = resultdata.GetListForForm(connection, form);
+            StatisticResultList.ItemsSource = resultList;
+            int number020 = 0 ;
+            int number2140 = 0;
+            int number4160 = 0;
+            int number6180 = 0;
+            int number81100 = 0;
+            int number100m = 0;
+            foreach (Result result in resultList)
+            {
+                int resultPoint = result.Point;
+                if(resultPoint <= 20)
+                {
+                    number020++;
+                }else if (resultPoint <= 40)
+                {
+                    number2140++;
+                }
+                else if (resultPoint <= 60)
+                {
+                    number4160++;
+                }
+                else if (resultPoint <= 80)
+                {
+                    number6180++;
+                }
+                else if (resultPoint <= 100)
+                {
+                    number81100++;
+                }else if(number100m <= 1000)
+                {
+                    number100m++;
+                }
+                text020.Text = "" + number020;
+                text2140.Text = "" + number2140;
+                text4160.Text = "" + number4160;
+                text6180.Text = "" + number6180;
+                text81100.Text = "" + number81100;
+                text100must.Text = "" + number100m;
+            }
+           
+            connection.Close();
+
+        }
+
+        private void UsersControl(object sender, EventArgs e )
+        {
+            MySqlConnection connection = MyMySQLConnection.ConnectionSingleton();
+            connection.Open();
+            Users users = new Users();
+            users.Nickname = Nickname.Text;
+            users.Password = Password.Text;
+            bool isUser = usersdata.ControlUser(connection, users) ;
+            if (isUser)
+            {
+                UsersConnection.Visibility = Visibility.Hidden;
+                DatabaseTab.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ErrorUserTextBlock.Visibility = Visibility.Visible;
+                ErrorUserTextBlock.Text = "Wrong nickname or password!"; 
+            }
+            connection.Close();
+        }
     }
 }

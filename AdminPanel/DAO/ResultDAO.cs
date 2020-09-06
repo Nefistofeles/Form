@@ -52,7 +52,7 @@ namespace AdminPanel.DAO
         public List<Result> GetListForSearch(MySqlConnection connection, string columnName, string searchText)
         {
             List<Result> resultList = new List<Result>();
-            string query = "Select * from result where " + columnName + " LIKE '" + searchText + "' ;";
+            string query = "Select * from result where " + columnName + " LIKE '%" + searchText + "%' ;";
             MySqlCommand command = new MySqlCommand(query, connection);
 
             try
@@ -90,7 +90,7 @@ namespace AdminPanel.DAO
                     while (reader.Read())
                     {
 
-                        resultList.Add(new Result(reader.GetInt16("id"), reader.GetInt16("point"), reader.GetString("email"), reader.GetInt16("form_id")));
+                        resultList.Add(new Result(reader.GetInt16("id"), reader.GetInt16("point"), reader.GetString("e_mail"), reader.GetInt16("form_id")));
 
                     }
                 }

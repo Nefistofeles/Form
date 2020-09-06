@@ -90,7 +90,7 @@ namespace AdminPanel.DAO
         public List<Form> GetListForSearch(MySqlConnection connection, string columnName, string searchString)
         {
             List<Form> formList = new List<Form>();
-            string query = "Select * from form where " + columnName + " LIKE '" + searchString + "';";
+            string query = "Select * from form where " + columnName + " LIKE '%" + searchString + "%';";
             MySqlCommand command = new MySqlCommand(query, connection);
 
             try

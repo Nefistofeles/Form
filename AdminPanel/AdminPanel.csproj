@@ -61,6 +61,7 @@
     <Compile Include="DAO\QuestionDAO.cs" />
     <Compile Include="DAO\QuestionOptionDAO.cs" />
     <Compile Include="DAO\ResultDAO.cs" />
+    <Compile Include="DAO\UsersDAO.cs" />
     <Compile Include="entities\Question.cs" />
     <Compile Include="entities\QuestionOption.cs" />
     <Compile Include="entities\Result.cs" />
@@ -73,6 +74,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="entities\Form.cs" />
+    <Compile Include="entities\Users.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
