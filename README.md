@@ -1,5 +1,3 @@
-# Form
-Form oluşturma, istatistik toplama sitesi
-
-ER tablosu :
-![](databases/ER.png)
+# Drug addiction form site
+Form and statistics site project that evaluate various selective questions, gather information.
+Website main ideas is drug addiction and treatment process. Also can do questionnaire, gather reports and statistics.
